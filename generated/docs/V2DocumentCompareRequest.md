@@ -1,0 +1,35 @@
+# V2DocumentCompareRequest
+
+Compare multiple documents
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**provider** | **str** |  | [optional] 
+**model** | **str** |  | [optional] 
+**max_tokens** | **int** |  | [optional] 
+**temperature** | **float** |  | [optional] 
+**documents** | **List[str]** | Documents to compare | 
+**comparison_type** | **str** |  | [optional] 
+
+## Example
+
+```python
+from llmhub_generated.models.v2_document_compare_request import V2DocumentCompareRequest
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of V2DocumentCompareRequest from a JSON string
+v2_document_compare_request_instance = V2DocumentCompareRequest.from_json(json)
+# print the JSON string representation of the object
+print(V2DocumentCompareRequest.to_json())
+
+# convert the object into a dict
+v2_document_compare_request_dict = v2_document_compare_request_instance.to_dict()
+# create an instance of V2DocumentCompareRequest from a dict
+v2_document_compare_request_from_dict = V2DocumentCompareRequest.from_dict(v2_document_compare_request_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
