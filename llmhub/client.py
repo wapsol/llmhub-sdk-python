@@ -8,6 +8,8 @@ sys.path.insert(0, 'generated')
 
 from llmhub_generated import Configuration, ApiClient
 from llmhub.exceptions import LLMHubError
+from llmhub.text import TextOperations
+from llmhub.embeddings import EmbeddingsOperations
 
 
 class LLMHub:
@@ -47,16 +49,15 @@ class LLMHub:
 
         # Configure the generated client
         self.config = Configuration()
-        self.config.api_key = {'X-API-Key': api_key}
         self.config.host = base_url
 
         # Initialize API client
         self._client = ApiClient(self.config)
 
-        # Initialize operation modules (will be implemented in wrapper classes)
-        # self.text = TextOperations(self._client)
+        # Initialize operation modules (pass API key for authentication)
+        self.text = TextOperations(self._client, api_key)
+        self.embeddings = EmbeddingsOperations(self._client, api_key)
         # self.document = DocumentOperations(self._client)
-        # self.embeddings = EmbeddingsOperations(self._client)
         # self.audio = AudioOperations(self._client)
         # self.video = VideoOperations(self._client)
         # self.image = ImageOperations(self._client)
