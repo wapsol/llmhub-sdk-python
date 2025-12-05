@@ -111,7 +111,7 @@ class TestTextSummarize:
         mock_response.content = "Summary"
 
         with patch.object(text_ops._api, 'summarize_text_api_v2_text_summarize_post', return_value=mock_response):
-            result = text_ops.summarize(text="Long text here...")
+            result = text_ops.summarize(text="This is a long text that needs to be summarized. It contains multiple sentences and provides enough content for the summarization algorithm to work with. The text must be at least 100 characters long to meet the API requirements.")
             assert result.content == "Summary"
 
     def test_summarize_with_length(self, text_ops):
@@ -120,7 +120,7 @@ class TestTextSummarize:
 
         with patch.object(text_ops._api, 'summarize_text_api_v2_text_summarize_post', return_value=mock_response):
             result = text_ops.summarize(
-                text="Long text",
+                text="This is a long text that needs to be summarized with a specific length parameter. It contains multiple sentences and provides enough content for testing the summary_length option.",
                 summary_length="short"
             )
             assert result is not None
@@ -169,7 +169,7 @@ class TestTextCondense:
         mock_response = Mock()
 
         with patch.object(text_ops._api, 'condense_text_api_v2_text_condense_post', return_value=mock_response):
-            result = text_ops.condense(text="Detailed text")
+            result = text_ops.condense(text="This is a detailed text with lots of information that needs to be condensed into a more compact form. It must be at least 100 characters long to meet the minimum requirements.")
             assert result is not None
 
 
@@ -206,7 +206,10 @@ class TestTextClassify:
         mock_response = Mock()
 
         with patch.object(text_ops._api, 'classify_text_api_v2_text_classify_post', return_value=mock_response):
-            result = text_ops.classify(text="Text to classify")
+            result = text_ops.classify(
+                text="Text to classify",
+                categories=["category1", "category2"]
+            )
             assert result is not None
 
     def test_classify_with_categories(self, text_ops):
@@ -258,14 +261,14 @@ class TestTextCompare:
             assert result is not None
 
     def test_compare_with_type(self, text_ops):
-        """Test comparison with type."""
+        """Test comparison with aspects."""
         mock_response = Mock()
 
         with patch.object(text_ops._api, 'compare_texts_api_v2_text_compare_post', return_value=mock_response):
             result = text_ops.compare(
                 text1="First",
                 text2="Second",
-                comparison_type="similarity"
+                comparison_aspects=["similarity", "differences"]
             )
             assert result is not None
 

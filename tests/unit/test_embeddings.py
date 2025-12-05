@@ -80,7 +80,7 @@ class TestEmbeddingsGenerate:
 
     def test_generate_empty_list_raises_error(self, embeddings_ops):
         """Test that empty texts list raises ValidationError."""
-        with pytest.raises(ValidationError, match="texts list cannot be empty"):
+        with pytest.raises(ValidationError, match="texts must be a non-empty list"):
             embeddings_ops.generate(texts=[])
 
     def test_generate_non_list_raises_error(self, embeddings_ops):

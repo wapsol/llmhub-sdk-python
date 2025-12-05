@@ -112,7 +112,7 @@ class TextOperations:
         self,
         text: str,
         target_language: str,
-        source_language: Optional[str] = None,
+        source_language: str = "auto",
         provider: Optional[str] = None,
         model: Optional[str] = None
     ) -> V2BaseResponse:
@@ -122,7 +122,7 @@ class TextOperations:
         Args:
             text: Text to translate
             target_language: Target language code (e.g., 'es', 'fr', 'de', 'ja')
-            source_language: Source language code (auto-detected if not specified)
+            source_language: Source language code (default: "auto" for auto-detection)
             provider: Optional provider override
             model: Optional model override
 
@@ -353,7 +353,7 @@ class TextOperations:
     def classify(
         self,
         text: str,
-        categories: Optional[List[str]] = None,
+        categories: List[str],
         provider: Optional[str] = None,
         model: Optional[str] = None
     ) -> V2BaseResponse:
@@ -362,7 +362,7 @@ class TextOperations:
 
         Args:
             text: Text to classify
-            categories: List of possible categories
+            categories: List of possible categories (required)
             provider: Optional provider override
             model: Optional model override
 
@@ -432,7 +432,7 @@ class TextOperations:
         self,
         text1: str,
         text2: str,
-        comparison_type: Optional[str] = None,
+        comparison_aspects: Optional[List[str]] = None,
         provider: Optional[str] = None,
         model: Optional[str] = None
     ) -> V2BaseResponse:
@@ -440,9 +440,9 @@ class TextOperations:
         Compare two texts for similarity, differences, etc.
 
         Args:
-            text1: First text
-            text2: Second text
-            comparison_type: Type of comparison ('similarity', 'differences', 'both')
+            text1: First text to compare
+            text2: Second text to compare
+            comparison_aspects: Specific aspects to compare (e.g., ['similarity', 'tone', 'style'])
             provider: Optional provider override
             model: Optional model override
 
@@ -453,14 +453,14 @@ class TextOperations:
             >>> response = client.text.compare(
             ...     text1="Original version",
             ...     text2="Modified version",
-            ...     comparison_type="differences"
+            ...     comparison_aspects=["differences", "similarity"]
             ... )
         """
         try:
+            # API expects texts as a list
             request = V2TextCompareRequest(
-                text1=text1,
-                text2=text2,
-                comparison_type=comparison_type,
+                texts=[text1, text2],
+                comparison_aspects=comparison_aspects,
                 provider=provider,
                 model=model
             )
