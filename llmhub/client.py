@@ -10,6 +10,15 @@ from llmhub_generated import Configuration, ApiClient
 from llmhub.exceptions import LLMHubError
 from llmhub.text import TextOperations
 from llmhub.embeddings import EmbeddingsOperations
+from llmhub.document import DocumentOperations
+from llmhub.audio import AudioOperations
+from llmhub.video import VideoOperations
+from llmhub.image import ImageOperations
+from llmhub.moderation import ModerationOperations
+from llmhub.enrichment import EnrichmentOperations
+from llmhub.discovery import DiscoveryOperations
+from llmhub.prompts import PromptOperations
+from llmhub.data import DataOperations
 
 
 class LLMHub:
@@ -19,6 +28,19 @@ class LLMHub:
     This client provides a unified interface to access 18+ AI providers
     across 11 modalities including text generation, embeddings, audio,
     video, image generation, and more.
+
+    Available Operations:
+        - text: Text generation, translation, summarization, etc.
+        - embeddings: Generate vector embeddings for text
+        - document: Parse, extract, and classify documents
+        - audio: Transcribe, synthesize, enhance audio
+        - video: Generate, describe, edit video
+        - image: Generate, edit, analyze images
+        - moderation: Content moderation and toxicity analysis
+        - enrichment: B2B data enrichment (Hunter.io)
+        - discovery: Discover available providers and models
+        - prompts: Manage reusable prompt templates
+        - data: Data operations (embed, rerank)
 
     Example:
         >>> client = LLMHub(api_key="your-api-key")
@@ -57,15 +79,15 @@ class LLMHub:
         # Initialize operation modules (pass API key for authentication)
         self.text = TextOperations(self._client, api_key)
         self.embeddings = EmbeddingsOperations(self._client, api_key)
-        # self.document = DocumentOperations(self._client)
-        # self.audio = AudioOperations(self._client)
-        # self.video = VideoOperations(self._client)
-        # self.image = ImageOperations(self._client)
-        # self.moderation = ModerationOperations(self._client)
-        # self.enrichment = EnrichmentOperations(self._client)
-        # self.discovery = DiscoveryOperations(self._client)
-        # self.prompts = PromptOperations(self._client)
-        # self.data = DataOperations(self._client)
+        self.document = DocumentOperations(self._client, api_key)
+        self.audio = AudioOperations(self._client, api_key)
+        self.video = VideoOperations(self._client, api_key)
+        self.image = ImageOperations(self._client, api_key)
+        self.moderation = ModerationOperations(self._client, api_key)
+        self.enrichment = EnrichmentOperations(self._client, api_key)
+        self.discovery = DiscoveryOperations(self._client, api_key)
+        self.prompts = PromptOperations(self._client, api_key)
+        self.data = DataOperations(self._client, api_key)
 
     def __repr__(self) -> str:
         """Return string representation of the client."""
